@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-API_KEY = 'dde599e590f43753c0e21cae2aa61d80'  # 🔁 Replace this with your TMDB API key
+API_KEY = 'dde599e590f43753c0e21cae2aa61d80'  
 BASE_URL = 'https://api.themoviedb.org/3'
 
 platforms = {
