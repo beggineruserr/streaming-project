@@ -1,3 +1,4 @@
+###imports all libraries
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -5,11 +6,17 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.preprocessing import OneHotEncoder
 import matplotlib.pyplot as plt
 
+#load data
 df = pd.read_csv('data/shows.csv')
+#drop empty rows
 df = df.dropna()
+#removes unknown values
 df = df[df['release_year'] != 'Unknown']
+#string to int conversion
 df['release_year'] = df['release_year'].astype(int)
 
+
+##Setup graph
 X = df[['platform', 'release_year']]
 y = df['rating']
 
@@ -18,8 +25,9 @@ X_encoded = encoder.fit_transform(X[['platform']])
 X_final = pd.DataFrame(X_encoded, columns=encoder.get_feature_names_out(['platform']))
 X_final['release_year'] = X['release_year'].reset_index(drop=True)
 
+#80,20 split
 X_train, X_test, y_train, y_test = train_test_split(X_final, y, test_size=0.2, random_state=42)
-
+#train the model
 model = LinearRegression()
 model.fit(X_train, y_train)
 
@@ -27,8 +35,8 @@ predictions = model.predict(X_test)
 mae = mean_absolute_error(y_test, predictions)
 r2 = r2_score(y_test, predictions)
 
-print("Mean Absolute Error (MAE):", round(mae, 3))
-print("R-squared (R²):", round(r2, 3))
+print("Mean Absolute Error (MAE):", round(mae, 3)) ##MAE
+print("R-squared (R²):", round(r2, 3)) ##R2
 
 plt.figure(figsize=(6,6))
 plt.scatter(y_test, predictions, alpha=0.5)
