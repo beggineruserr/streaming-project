@@ -16,3 +16,5 @@ CREATE TABLE shows (
     rating NUMERIC,
     release_year INT
 );
+
+-- pushing changes
